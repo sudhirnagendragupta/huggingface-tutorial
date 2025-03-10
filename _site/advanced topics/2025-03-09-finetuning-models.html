@@ -1,0 +1,823 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Finetuning Models · Hugging Face Tutorial</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="GitBook style tutorial for Hugging Face.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Sudhir Gupta"><link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/style.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-fontsettings/website.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/search.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-splitter/splitter.css">
+
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/rouge/colorful.css">
+
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/custom.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/custom-local.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/huggingface-tutorial/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/huggingface-tutorial//assets/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+
+
+            <link rel="prev" href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" />
+        
+
+        
+            <link rel="next" href="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html" />
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="/huggingface-tutorial/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial">
+            
+                <a href="/huggingface-tutorial/" onclick="pageScrollToTop(this)">
+                    Hugging Face Tutorial
+                </a>
+                
+                    
+                
+            </li>
+
+            <li class="divider"></li>
+
+            <!-- First pass: Process ordered sections -->
+            
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Natural Language Processing</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-classification.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-classification.html" onclick="pageScrollToTop(this)">
+                                    Text Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-question-answering.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-question-answering.html" onclick="pageScrollToTop(this)">
+                                    Question Answering
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-generation.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-generation.html" onclick="pageScrollToTop(this)">
+                                    Text Generation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-summarization.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-summarization.html" onclick="pageScrollToTop(this)">
+                                    Text Summarization
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-named-entity-recognition.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-named-entity-recognition.html" onclick="pageScrollToTop(this)">
+                                    Named Entity Recognition
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Computer Vision</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-classification.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-classification.html" onclick="pageScrollToTop(this)">
+                                    Image Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-object-detection.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-object-detection.html" onclick="pageScrollToTop(this)">
+                                    Object Detection
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-segmentation.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-segmentation.html" onclick="pageScrollToTop(this)">
+                                    Image Segmentation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-generation.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-generation.html" onclick="pageScrollToTop(this)">
+                                    Image Generation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Speech Processing</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-speech-recognition.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-speech-recognition.html" onclick="pageScrollToTop(this)">
+                                    Speech Recognition
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-audio-classification.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-audio-classification.html" onclick="pageScrollToTop(this)">
+                                    Audio Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-text-to-speech.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-text-to-speech.html" onclick="pageScrollToTop(this)">
+                                    Text-to-Speech
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Multimodal Applications</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html" onclick="pageScrollToTop(this)">
+                                    Visual Question Answering
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html" onclick="pageScrollToTop(this)">
+                                    Image Captioning
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" onclick="pageScrollToTop(this)">
+                                    CLIP - Bridging Vision and Language
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Advanced Topics</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter active" data-level="1.2" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html" onclick="pageScrollToTop(this)">
+                                    Finetuning Models
+                                </a>
+                                
+                                    
+                                        
+
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html" onclick="pageScrollToTop(this)">
+                                    Model Optimization Techniques
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html" onclick="pageScrollToTop(this)">
+                                    Deploying Models
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Domain-Specific Applications</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html" onclick="pageScrollToTop(this)">
+                                    Healthcare and Biomedical NLP
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html" onclick="pageScrollToTop(this)">
+                                    Financial Text Analysis
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html" onclick="pageScrollToTop(this)">
+                                    Legal Text Processing
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Hugging Face Ecosystem Tools</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html">
+                            
+                                <a href="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html" onclick="pageScrollToTop(this)">
+                                    Datasets Library
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html">
+                            
+                                <a href="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html" onclick="pageScrollToTop(this)">
+                                    Hugging Face Spaces
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+            
+
+            <!-- Second pass: Add remaining categories not in section_order -->
+            
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            <!-- Add collections at the end -->
+            
+                
+                    
+                
+                    
+                        
+                        
+                            
+                            
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            
+                                <li class="divider"></li>
+                                <li class="chapter" data-level="1.1">
+                                    <span class="expand-stub"></span>
+                                    <span class="section-title">Others</span>
+                                    <ul class="articles">
+                                    
+                                        
+                                        <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/others/about/">
+                                        
+                                            <a href="/huggingface-tutorial/others/about/" onclick="pageScrollToTop(this)">
+                                                Conclusion
+                                            </a>
+                                            
+                                                
+                                            
+                                        </li>
+                                    
+                                    </ul>
+                                </li>
+                            
+                        
+                    
+                
+            
+        </ul>
+    </nav>
+</div><div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        
+                            <a href="." >Finetuning Models</a>
+                        
+                    </h1>
+                </div>
+
+                <div class="body-inner"><div class="page-wrapper" tabindex="-1" role="main">
+    
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    
+                        <h1 id="/advanced%20topics/finetuning-models">Finetuning Models</h1>
+                    
+
+                    <p>Fine-tuning allows you to adapt pre-trained models to your specific data and tasks, often leading to better performance.</p>
+
+<h4 id="hands-on-example-fine-tuning-a-text-classification-model">Hands-on Example: Fine-tuning a Text Classification Model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">TrainingArguments</span>
+<span class="kn">from</span> <span class="n">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span><span class="p">,</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="n">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_recall_fscore_support</span>
+<span class="kn">import</span> <span class="n">torch</span>
+
+<span class="c1"># Load a small dataset (IMDB reviews subset in this example)
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="sh">"</span><span class="s">imdb</span><span class="sh">"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="sh">"</span><span class="s">train[:1000]</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Split into train and validation
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">train_test_split</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">]</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">test</span><span class="sh">"</span><span class="p">]</span>
+
+<span class="c1"># Load pre-trained model and tokenizer
+</span><span class="n">model_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">distilbert-base-uncased</span><span class="sh">"</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Tokenize data
+</span><span class="k">def</span> <span class="nf">tokenize_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="sh">"</span><span class="s">max_length</span><span class="sh">"</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">tokenized_train</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="n">tokenize_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tokenized_eval</span> <span class="o">=</span> <span class="n">eval_dataset</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="n">tokenize_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Define metrics function
+</span><span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">pred</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">label_ids</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">predictions</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nf">precision_recall_fscore_support</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="sh">'</span><span class="s">binary</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">f1</span><span class="sh">'</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">precision</span><span class="sh">'</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">recall</span><span class="sh">'</span><span class="p">:</span> <span class="n">recall</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define training arguments
+</span><span class="n">training_args</span> <span class="o">=</span> <span class="nc">TrainingArguments</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">./results</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">logging_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">./logs</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">logging_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">evaluation_strategy</span><span class="o">=</span><span class="sh">"</span><span class="s">epoch</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Initialize Trainer
+</span><span class="n">trainer</span> <span class="o">=</span> <span class="nc">Trainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">tokenized_train</span><span class="p">,</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">tokenized_eval</span><span class="p">,</span>
+    <span class="n">compute_metrics</span><span class="o">=</span><span class="n">compute_metrics</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Fine-tune the model
+</span><span class="n">trainer</span><span class="p">.</span><span class="nf">train</span><span class="p">()</span>
+
+<span class="c1"># Evaluate the model
+</span><span class="n">eval_results</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Evaluation results:</span><span class="sh">"</span><span class="p">,</span> <span class="n">eval_results</span><span class="p">)</span>
+
+<span class="c1"># Save fine-tuned model and tokenizer
+</span><span class="n">model</span><span class="p">.</span><span class="nf">save_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">./fine-tuned-model</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="p">.</span><span class="nf">save_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">./fine-tuned-model</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Test the fine-tuned model on a new example
+</span><span class="n">test_text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">This movie was absolutely fantastic! I loved every minute of it.</span><span class="sh">"</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">test_text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">predicted_class</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">.</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test text: </span><span class="si">{</span><span class="n">test_text</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predicted class: </span><span class="si">{</span><span class="sh">'</span><span class="s">Positive</span><span class="sh">'</span> <span class="k">if</span> <span class="n">predicted_class</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sh">'</span><span class="s">Negative</span><span class="sh">'</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This example demonstrates a basic fine-tuning workflow for a text classification model, including data preparation, training, evaluation, and inference.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Try fine-tuning on your own dataset by creating a custom Dataset from a CSV or JSON file.</li>
+  <li>Experiment with different model architectures like BERT, RoBERTa, or DistilBERT.</li>
+  <li>Try different hyperparameters like learning rate, batch size, and number of epochs to optimize performance.</li>
+</ol>
+</section>
+            </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div></div>
+    </div>
+</div>
+
+<!-- introduce mathjax support -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script
+  type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<!-- introduce per-page mermaid support -->
+
+
+<!-- introduce mathjax support -->
+<script>
+    function fixes_chrome_anchors() {
+        let chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (window.location.hash && chrome) {
+            setTimeout(function () {
+                var hash = window.location.hash;
+                window.location.hash = "";
+                window.location.hash = hash;
+            }, 300);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        // Loading hasn't finished yet
+        document.addEventListener("DOMContentLoaded", fixes_chrome_anchors);
+    } else {
+        // `DOMContentLoaded` has already fired
+        fixes_chrome_anchors();
+    }
+</script>
+
+
+                        <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: CLIP - Bridging Vision and Language">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                        <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Model Optimization Techniques">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "next": {
+            "title": "Model Optimization Techniques",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2025-03-09-model-optimization.md",
+            "ref": "_posts/2025-03-09-model-optimization.md",
+            "articles": []
+        },
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "expandable-chapter-small2": {
+                "articlesExpand": true,
+            },
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},            "sharing": {
+                "facebook": true,
+
+                "google": false,
+
+                "github": true,
+              
+                "github_link": "https://github.com",
+              
+
+                "telegram": false,
+                "telegram_link": "https://t.me",
+
+                "instapaper": false,
+
+                "twitter": true,
+              
+
+                "vk": false,
+
+                "weibo": false,
+
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper", "github", "telegram"]
+            },
+"theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            },
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Hugging Face Tutorial",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2025-03-09-finetuning-models.md",
+        "mtime": "2025-03-09 15:20:01 +0000",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2025-03-10 02:08:30 +0000"
+    },
+    "basePath": "/huggingface-tutorial",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/huggingface-tutorial/assets/gitbook/gitbook.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/theme.js"></script>
+
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/search.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-splitter/splitter.js"></script>
+
+
+<!--
+<script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script>
+-->
+
+<script src="/huggingface-tutorial/assets/gitbook/custom.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/custom-local.js"></script>
+
+
+
+</body>
+</html>

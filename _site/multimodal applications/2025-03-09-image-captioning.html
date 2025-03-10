@@ -1,0 +1,778 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Image Captioning · Hugging Face Tutorial</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="GitBook style tutorial for Hugging Face.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Sudhir Gupta"><link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/style.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-fontsettings/website.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/search.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/gitbook-plugin-splitter/splitter.css">
+
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/rouge/colorful.css">
+
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/custom.css">
+<link rel="stylesheet" href="/huggingface-tutorial/assets/gitbook/custom-local.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/huggingface-tutorial/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/huggingface-tutorial//assets/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+
+
+            <link rel="prev" href="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html" />
+        
+
+        
+            <link rel="next" href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" />
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="/huggingface-tutorial/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial">
+            
+                <a href="/huggingface-tutorial/" onclick="pageScrollToTop(this)">
+                    Hugging Face Tutorial
+                </a>
+                
+                    
+                
+            </li>
+
+            <li class="divider"></li>
+
+            <!-- First pass: Process ordered sections -->
+            
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Natural Language Processing</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-classification.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-classification.html" onclick="pageScrollToTop(this)">
+                                    Text Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-question-answering.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-question-answering.html" onclick="pageScrollToTop(this)">
+                                    Question Answering
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-generation.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-generation.html" onclick="pageScrollToTop(this)">
+                                    Text Generation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-summarization.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-text-summarization.html" onclick="pageScrollToTop(this)">
+                                    Text Summarization
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/natural%20language%20processing/2025-03-09-named-entity-recognition.html">
+                            
+                                <a href="/huggingface-tutorial/natural%20language%20processing/2025-03-09-named-entity-recognition.html" onclick="pageScrollToTop(this)">
+                                    Named Entity Recognition
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Computer Vision</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-classification.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-classification.html" onclick="pageScrollToTop(this)">
+                                    Image Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-object-detection.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-object-detection.html" onclick="pageScrollToTop(this)">
+                                    Object Detection
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-segmentation.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-segmentation.html" onclick="pageScrollToTop(this)">
+                                    Image Segmentation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/computer%20vision/2025-03-09-image-generation.html">
+                            
+                                <a href="/huggingface-tutorial/computer%20vision/2025-03-09-image-generation.html" onclick="pageScrollToTop(this)">
+                                    Image Generation
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Speech Processing</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-speech-recognition.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-speech-recognition.html" onclick="pageScrollToTop(this)">
+                                    Speech Recognition
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-audio-classification.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-audio-classification.html" onclick="pageScrollToTop(this)">
+                                    Audio Classification
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/speech%20processing/2025-03-09-text-to-speech.html">
+                            
+                                <a href="/huggingface-tutorial/speech%20processing/2025-03-09-text-to-speech.html" onclick="pageScrollToTop(this)">
+                                    Text-to-Speech
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Multimodal Applications</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html" onclick="pageScrollToTop(this)">
+                                    Visual Question Answering
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter active" data-level="1.2" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html" onclick="pageScrollToTop(this)">
+                                    Image Captioning
+                                </a>
+                                
+                                    
+                                        
+
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html">
+                            
+                                <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" onclick="pageScrollToTop(this)">
+                                    CLIP - Bridging Vision and Language
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Advanced Topics</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html" onclick="pageScrollToTop(this)">
+                                    Finetuning Models
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html" onclick="pageScrollToTop(this)">
+                                    Model Optimization Techniques
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html">
+                            
+                                <a href="/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html" onclick="pageScrollToTop(this)">
+                                    Deploying Models
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Domain-Specific Applications</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html" onclick="pageScrollToTop(this)">
+                                    Healthcare and Biomedical NLP
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html" onclick="pageScrollToTop(this)">
+                                    Financial Text Analysis
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html">
+                            
+                                <a href="/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html" onclick="pageScrollToTop(this)">
+                                    Legal Text Processing
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+                    
+                    
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">Hugging Face Ecosystem Tools</span>
+                        <ul class="articles">
+                        
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html">
+                            
+                                <a href="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html" onclick="pageScrollToTop(this)">
+                                    Datasets Library
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html">
+                            
+                                <a href="/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html" onclick="pageScrollToTop(this)">
+                                    Hugging Face Spaces
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    </li>
+                    
+                
+            
+
+            <!-- Second pass: Add remaining categories not in section_order -->
+            
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+
+            <!-- Add collections at the end -->
+            
+                
+                    
+                
+                    
+                        
+                        
+                            
+                            
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            
+                                <li class="divider"></li>
+                                <li class="chapter" data-level="1.1">
+                                    <span class="expand-stub"></span>
+                                    <span class="section-title">Others</span>
+                                    <ul class="articles">
+                                    
+                                        
+                                        <li class="chapter" data-level="1.1" data-path="/huggingface-tutorial/others/about/">
+                                        
+                                            <a href="/huggingface-tutorial/others/about/" onclick="pageScrollToTop(this)">
+                                                Conclusion
+                                            </a>
+                                            
+                                                
+                                            
+                                        </li>
+                                    
+                                    </ul>
+                                </li>
+                            
+                        
+                    
+                
+            
+        </ul>
+    </nav>
+</div><div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        
+                            <a href="." >Image Captioning</a>
+                        
+                    </h1>
+                </div>
+
+                <div class="body-inner"><div class="page-wrapper" tabindex="-1" role="main">
+    
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    
+                        <h1 id="/multimodal%20applications/image-captioning">Image Captioning</h1>
+                    
+
+                    <p>Image captioning generates descriptive text for images, useful for accessibility and content indexing.</p>
+
+<h4 id="hands-on-example-generating-captions-for-images">Hands-on Example: Generating Captions for Images</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="n">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Initialize the image-to-text pipeline
+</span><span class="n">image_captioner</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span><span class="sh">"</span><span class="s">image-to-text</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Load images from URLs
+</span><span class="n">image_urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/San_Francisco_skyline_at_night_from_Pier_7.jpg/800px-San_Francisco_skyline_at_night_from_Pier_7.jpg</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Giraffe_at_Kruger_National_Park%2C_South_Africa_%28square_crop%29.jpg/800px-Giraffe_at_Kruger_National_Park%2C_South_Africa_%28square_crop%29.jpg</span><span class="sh">"</span>
+<span class="p">]</span>
+
+<span class="c1"># Generate captions for each image
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">image_urls</span><span class="p">):</span>
+    <span class="c1"># Load image
+</span>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="nc">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">))</span>
+    
+    <span class="c1"># Display image
+</span>    <span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">axis</span><span class="p">(</span><span class="sh">'</span><span class="s">off</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Image </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+    
+    <span class="c1"># Generate caption
+</span>    <span class="n">captions</span> <span class="o">=</span> <span class="nf">image_captioner</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Generated captions for Image </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">caption</span> <span class="ow">in</span> <span class="n">captions</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">• </span><span class="si">{</span><span class="n">caption</span><span class="p">[</span><span class="sh">'</span><span class="s">generated_text</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The image captioning pipeline generates descriptive text for images, demonstrating how vision and language models can be combined.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Generate captions for personal photos or artwork to see how the model interprets different visual styles.</li>
+  <li>Try different models like <code class="language-plaintext highlighter-rouge">nlpconnect/vit-gpt2-image-captioning</code> for comparison.</li>
+  <li>Test the captioning on abstract or ambiguous images to see how the model handles them.</li>
+</ol>
+</section>
+            </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div></div>
+    </div>
+</div>
+
+<!-- introduce mathjax support -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script
+  type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<!-- introduce per-page mermaid support -->
+
+
+<!-- introduce mathjax support -->
+<script>
+    function fixes_chrome_anchors() {
+        let chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (window.location.hash && chrome) {
+            setTimeout(function () {
+                var hash = window.location.hash;
+                window.location.hash = "";
+                window.location.hash = hash;
+            }, 300);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        // Loading hasn't finished yet
+        document.addEventListener("DOMContentLoaded", fixes_chrome_anchors);
+    } else {
+        // `DOMContentLoaded` has already fired
+        fixes_chrome_anchors();
+    }
+</script>
+
+
+                        <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-visual-question-answering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Visual Question Answering">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                        <a href="/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" class="navigation navigation-next navigation-unique" aria-label="Next page: CLIP - Bridging Vision and Language">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "next": {
+            "title": "CLIP - Bridging Vision and Language",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2025-03-09-contrastive-lang-image-pretraining.md",
+            "ref": "_posts/2025-03-09-contrastive-lang-image-pretraining.md",
+            "articles": []
+        },
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "expandable-chapter-small2": {
+                "articlesExpand": true,
+            },
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},            "sharing": {
+                "facebook": true,
+
+                "google": false,
+
+                "github": true,
+              
+                "github_link": "https://github.com",
+              
+
+                "telegram": false,
+                "telegram_link": "https://t.me",
+
+                "instapaper": false,
+
+                "twitter": true,
+              
+
+                "vk": false,
+
+                "weibo": false,
+
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper", "github", "telegram"]
+            },
+"theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            },
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Hugging Face Tutorial",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2025-03-09-image-captioning.md",
+        "mtime": "2025-03-09 15:15:02 +0000",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2025-03-10 02:08:30 +0000"
+    },
+    "basePath": "/huggingface-tutorial",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/huggingface-tutorial/assets/gitbook/gitbook.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/theme.js"></script>
+
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-search-pro/search.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/gitbook-plugin-splitter/splitter.js"></script>
+
+
+<!--
+<script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script>
+-->
+
+<script src="/huggingface-tutorial/assets/gitbook/custom.js"></script>
+<script src="/huggingface-tutorial/assets/gitbook/custom-local.js"></script>
+
+
+
+</body>
+</html>

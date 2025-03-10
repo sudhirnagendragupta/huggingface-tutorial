@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://0.0.0.0:4000/huggingface-tutorial/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/huggingface-tutorial/" rel="alternate" type="text/html" /><updated>2025-03-10T02:08:30+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/feed.xml</id><title type="html">Hugging Face Tutorial</title><subtitle>GitBook style tutorial for Hugging Face.
+</subtitle><author><name>Sudhir Gupta</name></author><entry><title type="html">Hugging Face Spaces</title><link href="http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html" rel="alternate" type="text/html" title="Hugging Face Spaces" /><published>2025-03-09T15:30:02+00:00</published><updated>2025-03-09T15:30:02+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/hugging-face-spaces</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-hugging-face-spaces.html"><![CDATA[<p>Spaces allows you to create and share demos of your machine learning models with a simple web interface.</p>
+
+<h4 id="hands-on-example-creating-a-gradio-demo">Hands-on Example: Creating a Gradio Demo</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">gradio</span> <span class="k">as</span> <span class="n">gr</span>
+<span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="c1"># Initialize model
+</span><span class="n">classifier</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span><span class="sh">"</span><span class="s">sentiment-analysis</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Define function for the interface
+</span><span class="k">def</span> <span class="nf">analyze_sentiment</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nf">classifier</span><span class="p">(</span><span class="n">text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> (Confidence: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span>
+
+<span class="c1"># Create Gradio interface
+</span><span class="n">demo</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="nc">Interface</span><span class="p">(</span>
+    <span class="n">fn</span><span class="o">=</span><span class="n">analyze_sentiment</span><span class="p">,</span>
+    <span class="n">inputs</span><span class="o">=</span><span class="n">gr</span><span class="p">.</span><span class="nc">Textbox</span><span class="p">(</span><span class="n">lines</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="sh">"</span><span class="s">Enter text to analyze...</span><span class="sh">"</span><span class="p">),</span>
+    <span class="n">outputs</span><span class="o">=</span><span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="sh">"</span><span class="s">Sentiment Analysis Demo</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">This demo uses a pre-trained model to analyze the sentiment of text.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+        <span class="sh">"</span><span class="s">I absolutely loved this movie! The acting was superb.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">The service at this restaurant was terrible and the food was bland.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">The weather today is okay, not great but not terrible either.</span><span class="sh">"</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Launch the interface
+</span><span class="n">demo</span><span class="p">.</span><span class="nf">launch</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Create demos for different AI tasks like image classification, translation, or text generation.</li>
+  <li>Customize the interface with themes, additional inputs/outputs, and more advanced components.</li>
+  <li>Deploy your demo to Hugging Face Spaces to share it with the community.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Hugging Face Ecosystem Tools" /><summary type="html"><![CDATA[Spaces allows you to create and share demos of your machine learning models with a simple web interface.]]></summary></entry><entry><title type="html">Datasets Library</title><link href="http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html" rel="alternate" type="text/html" title="Datasets Library" /><published>2025-03-09T15:30:01+00:00</published><updated>2025-03-09T15:30:01+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/datasets-library</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/hugging%20face%20ecosystem%20tools/2025-03-09-datasets-library.html"><![CDATA[<p>The datasets library provides a unified interface for accessing and processing datasets for machine learning.</p>
+
+<h4 id="hands-on-example-working-with-the-datasets-library">Hands-on Example: Working with the Datasets Library</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span><span class="p">,</span> <span class="n">load_metric</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># Load a dataset
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="sh">"</span><span class="s">glue</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">sst2</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Dataset structure: </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Explore dataset splits
+</span><span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Split: </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s">, Number of examples: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">split</span><span class="p">])</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Look at sample data
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">Sample examples from the training set:</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">example</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">][:</span><span class="mi">5</span><span class="p">]):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Example </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">  Text: </span><span class="si">{</span><span class="n">example</span><span class="p">[</span><span class="sh">'</span><span class="s">sentence</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">  Label: </span><span class="si">{</span><span class="n">example</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">dataset</span><span class="p">[</span><span class="sh">'</span><span class="s">train</span><span class="sh">'</span><span class="p">].</span><span class="n">features</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">].</span><span class="n">names</span><span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">]]</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Dataset statistics
+</span><span class="n">sentence_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="sh">"</span><span class="s">sentence</span><span class="sh">"</span><span class="p">].</span><span class="nf">split</span><span class="p">())</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">]]</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">hist</span><span class="p">(</span><span class="n">sentence_lengths</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Distribution of Sentence Lengths in SST-2 Training Set</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Number of Words</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Frequency</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Average sentence length: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">sentence_lengths</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> words</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Median sentence length: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span><span class="n">sentence_lengths</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> words</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Min sentence length: </span><span class="si">{</span><span class="nf">min</span><span class="p">(</span><span class="n">sentence_lengths</span><span class="p">)</span><span class="si">}</span><span class="s"> words</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Max sentence length: </span><span class="si">{</span><span class="nf">max</span><span class="p">(</span><span class="n">sentence_lengths</span><span class="p">)</span><span class="si">}</span><span class="s"> words</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Class distribution
+</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="sh">"</span><span class="s">label</span><span class="sh">"</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">]]</span>
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">bincount</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">label_names</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">].</span><span class="n">features</span><span class="p">[</span><span class="sh">"</span><span class="s">label</span><span class="sh">"</span><span class="p">].</span><span class="n">names</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">bar</span><span class="p">(</span><span class="n">label_names</span><span class="p">,</span> <span class="n">label_counts</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Class Distribution in SST-2 Training Set</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Sentiment</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Count</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">label_names</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Class </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">label_counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s"> examples (</span><span class="si">{</span><span class="n">label_counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="nf">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%)</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Explore different datasets for various tasks (e.g., <code class="language-plaintext highlighter-rouge">imdb</code> for sentiment analysis, <code class="language-plaintext highlighter-rouge">squad</code> for question answering).</li>
+  <li>Create a custom dataset from your own data and share it on the Hugging Face Hub.</li>
+  <li>Use dataset transformations like filtering, mapping, and shuffling to preprocess data for training.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Hugging Face Ecosystem Tools" /><summary type="html"><![CDATA[The datasets library provides a unified interface for accessing and processing datasets for machine learning.]]></summary></entry><entry><title type="html">Legal Text Processing</title><link href="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html" rel="alternate" type="text/html" title="Legal Text Processing" /><published>2025-03-09T15:25:03+00:00</published><updated>2025-03-09T15:25:03+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/legal-text-processing</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-legal-text-processing.html"><![CDATA[<p>Specialized models for legal documents:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="c1"># Legal document classification
+</span><span class="n">legal_classifier</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">zero-shot-classification</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="n">legal_documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">The parties hereby agree to arbitrate all disputes arising under this agreement.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">Tenant shall maintain liability insurance in the amount of $1,000,000.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">This agreement shall be governed by the laws of the State of New York.</span><span class="sh">"</span>
+<span class="p">]</span>
+
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">Arbitration Clause</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Insurance Requirement</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Governing Law</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Termination Provision</span><span class="sh">"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">legal_documents</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nf">legal_classifier</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">categories</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Text: </span><span class="si">{</span><span class="n">doc</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Classification: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">labels</span><span class="sh">'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> (Score: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">scores</span><span class="sh">'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div></div>]]></content><author><name>Sudhir Gupta</name></author><category term="Domain-Specific Applications" /><summary type="html"><![CDATA[Specialized models for legal documents:]]></summary></entry><entry><title type="html">Financial Text Analysis</title><link href="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html" rel="alternate" type="text/html" title="Financial Text Analysis" /><published>2025-03-09T15:25:02+00:00</published><updated>2025-03-09T15:25:02+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/financial-text-analysis</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-financial-text-analysis.html"><![CDATA[<p>Models specialized for financial sentiment and document analysis:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+<span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">import</span> <span class="n">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="c1"># Load FinBERT for financial sentiment analysis
+</span><span class="n">model_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ProsusAI/finbert</span><span class="sh">"</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+
+<span class="c1"># Analyze financial sentiment
+</span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">The company reported a 50% increase in quarterly profits.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">The stock plummeted following the earnings miss.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">Analysts remain neutral on the company</span><span class="sh">'</span><span class="s">s growth prospects.</span><span class="sh">"</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+    
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="nf">softmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">.</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">negative</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">neutral</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">positive</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">sentiment</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">probs</span><span class="p">.</span><span class="nf">argmax</span><span class="p">().</span><span class="nf">item</span><span class="p">()]</span>
+    <span class="n">confidence</span> <span class="o">=</span> <span class="n">probs</span><span class="p">.</span><span class="nf">max</span><span class="p">().</span><span class="nf">item</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Text: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Sentiment: </span><span class="si">{</span><span class="n">sentiment</span><span class="si">}</span><span class="s"> (confidence: </span><span class="si">{</span><span class="n">confidence</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div></div>]]></content><author><name>Sudhir Gupta</name></author><category term="Domain-Specific Applications" /><summary type="html"><![CDATA[Models specialized for financial sentiment and document analysis:]]></summary></entry><entry><title type="html">Healthcare and Biomedical NLP</title><link href="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html" rel="alternate" type="text/html" title="Healthcare and Biomedical NLP" /><published>2025-03-09T15:25:01+00:00</published><updated>2025-03-09T15:25:01+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/healthcare</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/domain-specific%20applications/2025-03-09-healthcare.html"><![CDATA[<p>Specialized models for processing biomedical texts:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModel</span><span class="p">,</span> <span class="n">pipeline</span>
+
+<span class="c1"># Load BioBERT, a biomedical language model
+</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">dmis-lab/biobert-v1.1</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">dmis-lab/biobert-v1.1</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Use BioBERT for biomedical named entity recognition
+</span><span class="n">ner</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span><span class="sh">"</span><span class="s">ner</span><span class="sh">"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="sh">"</span><span class="s">drAbreu/bioBERT-NER-NCBI-disease</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Patients with diabetes mellitus often develop hypertension and coronary heart disease.</span><span class="sh">"</span>
+<span class="n">entities</span> <span class="o">=</span> <span class="nf">ner</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Biomedical entities:</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="p">[</span><span class="sh">'</span><span class="s">entity</span><span class="sh">'</span><span class="p">].</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">B-</span><span class="sh">'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">entity</span><span class="p">[</span><span class="sh">'</span><span class="s">entity</span><span class="sh">'</span><span class="p">].</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">I-</span><span class="sh">'</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">• </span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="sh">'</span><span class="s">word</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> - </span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="sh">'</span><span class="s">entity</span><span class="sh">'</span><span class="p">][</span><span class="mi">2</span><span class="si">:</span><span class="p">]</span><span class="si">}</span><span class="s"> (Score: </span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Biomedical question answering
+</span><span class="n">qa_pipeline</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">question-answering</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="sh">"</span><span class="s">ktrapeznikov/biobert-v1.1-pubmed-squad-v2</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+Coronavirus disease 2019 (COVID-19) is caused by SARS-CoV-2. The virus first 
+identified in Wuhan, China, has spread globally, resulting in the ongoing 
+COVID-19 pandemic. Common symptoms include fever, cough, fatigue, shortness 
+of breath, and loss of smell and taste.
+</span><span class="sh">"""</span>
+
+<span class="n">question</span> <span class="o">=</span> <span class="sh">"</span><span class="s">What causes COVID-19?</span><span class="sh">"</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nf">qa_pipeline</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Answer: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">answer</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> (Score: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>]]></content><author><name>Sudhir Gupta</name></author><category term="Domain-Specific Applications" /><summary type="html"><![CDATA[Specialized models for processing biomedical texts:]]></summary></entry><entry><title type="html">Deploying Models</title><link href="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html" rel="alternate" type="text/html" title="Deploying Models" /><published>2025-03-09T15:20:03+00:00</published><updated>2025-03-09T15:20:03+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/deploying-models</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-deploying-models.html"><![CDATA[<p>Deployment makes your models available for use in applications, either locally or in the cloud.</p>
+
+<h4 id="hands-on-example-creating-a-simple-rest-api">Hands-on Example: Creating a Simple REST API</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="n">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
+
+<span class="c1"># Initialize sentiment analysis pipeline
+</span><span class="n">sentiment_pipeline</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span><span class="sh">"</span><span class="s">sentiment-analysis</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Create a Flask app
+</span><span class="n">app</span> <span class="o">=</span> <span class="nc">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="sh">'</span><span class="s">/analyze</span><span class="sh">'</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">POST</span><span class="sh">'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">analyze_sentiment</span><span class="p">():</span>
+    <span class="c1"># Get text from the request
+</span>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">json</span>
+    <span class="k">if</span> <span class="sh">'</span><span class="s">text</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">jsonify</span><span class="p">({</span><span class="sh">'</span><span class="s">error</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">No text provided</span><span class="sh">'</span><span class="p">}),</span> <span class="mi">400</span>
+    
+    <span class="c1"># Analyze sentiment
+</span>    <span class="n">result</span> <span class="o">=</span> <span class="nf">sentiment_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Return result
+</span>    <span class="k">return</span> <span class="nf">jsonify</span><span class="p">({</span>
+        <span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">],</span>
+        <span class="sh">'</span><span class="s">sentiment</span><span class="sh">'</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">label</span><span class="sh">'</span><span class="p">],</span>
+        <span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">]</span>
+    <span class="p">})</span>
+
+<span class="c1"># Example of how to start the server
+</span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Starting sentiment analysis API...</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Example usage:</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">curl -X POST http://localhost:5000/analyze -H </span><span class="se">\"</span><span class="s">Content-Type: application/json</span><span class="se">\"</span><span class="s"> -d </span><span class="sh">'</span><span class="s">{</span><span class="se">\"</span><span class="s">text</span><span class="se">\"</span><span class="s">:</span><span class="se">\"</span><span class="s">I love this product!</span><span class="se">\"</span><span class="s">}</span><span class="sh">'"</span><span class="p">)</span>
+    <span class="n">app</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This example shows how to create a simple REST API for sentiment analysis using Flask. In a real-world scenario, you might use more robust frameworks like FastAPI and deploy to cloud platforms like AWS, Google Cloud, or Azure.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Extend the API to support multiple NLP tasks (e.g., summarization, translation).</li>
+  <li>Add input validation, error handling, and rate limiting for a more robust API.</li>
+  <li>Deploy the API to a cloud platform or use Hugging Face Spaces for easy sharing.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Advanced Topics" /><summary type="html"><![CDATA[Deployment makes your models available for use in applications, either locally or in the cloud.]]></summary></entry><entry><title type="html">Model Optimization Techniques</title><link href="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html" rel="alternate" type="text/html" title="Model Optimization Techniques" /><published>2025-03-09T15:20:02+00:00</published><updated>2025-03-09T15:20:02+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/model-optimization</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-model-optimization.html"><![CDATA[<p>Optimization techniques help make models more efficient in terms of size, speed, and memory usage.</p>
+
+<h4 id="hands-on-example-quantizing-a-model">Hands-on Example: Quantizing a Model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+<span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">torch.quantization</span> <span class="kn">import</span> <span class="n">quantize_dynamic</span>
+<span class="kn">import</span> <span class="n">time</span>
+
+<span class="c1"># Load a pre-trained model
+</span><span class="n">model_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">distilbert-base-uncased-finetuned-sst-2-english</span><span class="sh">"</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+
+<span class="c1"># Prepare sample input
+</span><span class="n">sample_text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">I really enjoyed this movie. The acting was superb and the plot was engaging.</span><span class="sh">"</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">sample_text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Function to measure inference time
+</span><span class="k">def</span> <span class="nf">measure_inference_time</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">num_runs</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">no_grad</span><span class="p">():</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+    <span class="nf">return </span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_runs</span>
+
+<span class="c1"># Measure original model performance
+</span><span class="n">original_size</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="p">.</span><span class="nf">parameters</span><span class="p">())</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">1024</span>  <span class="c1"># Size in MB
+</span><span class="n">original_time</span> <span class="o">=</span> <span class="nf">measure_inference_time</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Original model size: </span><span class="si">{</span><span class="n">original_size</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> MB</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Original model average inference time: </span><span class="si">{</span><span class="n">original_time</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> ms</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Quantize the model
+</span><span class="n">quantized_model</span> <span class="o">=</span> <span class="nf">quantize_dynamic</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="p">{</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">qint8</span>
+<span class="p">)</span>
+
+<span class="c1"># Measure quantized model performance
+</span><span class="n">quantized_size</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">quantized_model</span><span class="p">.</span><span class="nf">parameters</span><span class="p">())</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">1024</span>  <span class="c1"># Approximation
+</span><span class="n">quantized_time</span> <span class="o">=</span> <span class="nf">measure_inference_time</span><span class="p">(</span><span class="n">quantized_model</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Quantized model size: </span><span class="si">{</span><span class="n">quantized_size</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> MB</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Quantized model average inference time: </span><span class="si">{</span><span class="n">quantized_time</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> ms</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Size reduction: </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">quantized_size</span><span class="o">/</span><span class="n">original_size</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Speed improvement: </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">quantized_time</span><span class="o">/</span><span class="n">original_time</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Check accuracy
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">no_grad</span><span class="p">():</span>
+    <span class="n">original_output</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">).</span><span class="n">logits</span>
+    <span class="n">quantized_output</span> <span class="o">=</span> <span class="nf">quantized_model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">).</span><span class="n">logits</span>
+
+<span class="n">original_prediction</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">original_output</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
+<span class="n">quantized_prediction</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">quantized_output</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Original model prediction: </span><span class="si">{</span><span class="n">original_prediction</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Quantized model prediction: </span><span class="si">{</span><span class="n">quantized_prediction</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predictions match: </span><span class="si">{</span><span class="n">original_prediction</span> <span class="o">==</span> <span class="n">quantized_prediction</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This example demonstrates dynamic quantization, which reduces model size and improves inference speed with minimal impact on accuracy.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Try quantization with different models and tasks to see how it affects performance.</li>
+  <li>Experiment with other optimization techniques like pruning and knowledge distillation.</li>
+  <li>Use the <code class="language-plaintext highlighter-rouge">optimum</code> library from Hugging Face for more advanced optimization techniques.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Advanced Topics" /><summary type="html"><![CDATA[Optimization techniques help make models more efficient in terms of size, speed, and memory usage.]]></summary></entry><entry><title type="html">Finetuning Models</title><link href="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html" rel="alternate" type="text/html" title="Finetuning Models" /><published>2025-03-09T15:20:01+00:00</published><updated>2025-03-09T15:20:01+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/finetuning-models</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/advanced%20topics/2025-03-09-finetuning-models.html"><![CDATA[<p>Fine-tuning allows you to adapt pre-trained models to your specific data and tasks, often leading to better performance.</p>
+
+<h4 id="hands-on-example-fine-tuning-a-text-classification-model">Hands-on Example: Fine-tuning a Text Classification Model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">TrainingArguments</span>
+<span class="kn">from</span> <span class="n">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span><span class="p">,</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="n">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_recall_fscore_support</span>
+<span class="kn">import</span> <span class="n">torch</span>
+
+<span class="c1"># Load a small dataset (IMDB reviews subset in this example)
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="sh">"</span><span class="s">imdb</span><span class="sh">"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="sh">"</span><span class="s">train[:1000]</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Split into train and validation
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">train_test_split</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">train</span><span class="sh">"</span><span class="p">]</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="sh">"</span><span class="s">test</span><span class="sh">"</span><span class="p">]</span>
+
+<span class="c1"># Load pre-trained model and tokenizer
+</span><span class="n">model_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">distilbert-base-uncased</span><span class="sh">"</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Tokenize data
+</span><span class="k">def</span> <span class="nf">tokenize_function</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">examples</span><span class="p">[</span><span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="sh">"</span><span class="s">max_length</span><span class="sh">"</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">tokenized_train</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="n">tokenize_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tokenized_eval</span> <span class="o">=</span> <span class="n">eval_dataset</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="n">tokenize_function</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Define metrics function
+</span><span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">pred</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">label_ids</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">predictions</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nf">precision_recall_fscore_support</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="sh">'</span><span class="s">binary</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">f1</span><span class="sh">'</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">precision</span><span class="sh">'</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">recall</span><span class="sh">'</span><span class="p">:</span> <span class="n">recall</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define training arguments
+</span><span class="n">training_args</span> <span class="o">=</span> <span class="nc">TrainingArguments</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">./results</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">logging_dir</span><span class="o">=</span><span class="sh">"</span><span class="s">./logs</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">logging_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">evaluation_strategy</span><span class="o">=</span><span class="sh">"</span><span class="s">epoch</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Initialize Trainer
+</span><span class="n">trainer</span> <span class="o">=</span> <span class="nc">Trainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">tokenized_train</span><span class="p">,</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">tokenized_eval</span><span class="p">,</span>
+    <span class="n">compute_metrics</span><span class="o">=</span><span class="n">compute_metrics</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Fine-tune the model
+</span><span class="n">trainer</span><span class="p">.</span><span class="nf">train</span><span class="p">()</span>
+
+<span class="c1"># Evaluate the model
+</span><span class="n">eval_results</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Evaluation results:</span><span class="sh">"</span><span class="p">,</span> <span class="n">eval_results</span><span class="p">)</span>
+
+<span class="c1"># Save fine-tuned model and tokenizer
+</span><span class="n">model</span><span class="p">.</span><span class="nf">save_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">./fine-tuned-model</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="p">.</span><span class="nf">save_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">./fine-tuned-model</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Test the fine-tuned model on a new example
+</span><span class="n">test_text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">This movie was absolutely fantastic! I loved every minute of it.</span><span class="sh">"</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">test_text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">predicted_class</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">.</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test text: </span><span class="si">{</span><span class="n">test_text</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predicted class: </span><span class="si">{</span><span class="sh">'</span><span class="s">Positive</span><span class="sh">'</span> <span class="k">if</span> <span class="n">predicted_class</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sh">'</span><span class="s">Negative</span><span class="sh">'</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This example demonstrates a basic fine-tuning workflow for a text classification model, including data preparation, training, evaluation, and inference.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Try fine-tuning on your own dataset by creating a custom Dataset from a CSV or JSON file.</li>
+  <li>Experiment with different model architectures like BERT, RoBERTa, or DistilBERT.</li>
+  <li>Try different hyperparameters like learning rate, batch size, and number of epochs to optimize performance.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Advanced Topics" /><summary type="html"><![CDATA[Fine-tuning allows you to adapt pre-trained models to your specific data and tasks, often leading to better performance.]]></summary></entry><entry><title type="html">CLIP - Bridging Vision and Language</title><link href="http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html" rel="alternate" type="text/html" title="CLIP - Bridging Vision and Language" /><published>2025-03-09T15:15:03+00:00</published><updated>2025-03-09T15:15:03+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/contrastive-lang-image-pretraining</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/2025-03-09-contrastive-lang-image-pretraining.html"><![CDATA[<p>CLIP (Contrastive Language-Image Pre-training) is a powerful model that understands both images and text in a shared embedding space, enabling various multimodal tasks.</p>
+
+<h4 id="hands-on-example-image-text-similarity-with-clip">Hands-on Example: Image-Text Similarity with CLIP</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">CLIPProcessor</span><span class="p">,</span> <span class="n">CLIPModel</span>
+<span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="n">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># Load CLIP model and processor
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">CLIPModel</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">openai/clip-vit-base-patch32</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">CLIPProcessor</span><span class="p">.</span><span class="nf">from_pretrained</span><span class="p">(</span><span class="sh">"</span><span class="s">openai/clip-vit-base-patch32</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Load an image
+</span><span class="n">image_url</span> <span class="o">=</span> <span class="sh">"</span><span class="s">http://images.cocodataset.org/val2017/000000039769.jpg</span><span class="sh">"</span>  <span class="c1"># Cat image
+</span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="nc">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">))</span>
+
+<span class="c1"># Display the image
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">axis</span><span class="p">(</span><span class="sh">'</span><span class="s">off</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Query Image</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+
+<span class="c1"># Define text descriptions to compare against
+</span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">a photo of a cat</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a photo of a dog</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a photo of a pizza</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a photo of a sunset</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a drawing of a cat</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a close-up photo of a cat</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">a black and white photo of a cat</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Compute image-text similarity
+</span><span class="n">inputs</span> <span class="o">=</span> <span class="nf">processor</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">no_grad</span><span class="p">():</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">logits_per_image</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">.</span><span class="n">logits_per_image</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">logits_per_image</span><span class="p">.</span><span class="nf">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Print results
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Image-text similarity scores:</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">texts</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"'</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="sh">'</span><span class="s">: </span><span class="si">{</span><span class="n">probs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">].</span><span class="nf">item</span><span class="p">()</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Visualize results
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">bar</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">texts</span><span class="p">)),</span> <span class="n">probs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">numpy</span><span class="p">())</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xticks</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">texts</span><span class="p">)),</span> <span class="p">[</span><span class="n">t</span><span class="p">[:</span><span class="mi">15</span><span class="p">]</span> <span class="o">+</span> <span class="sh">"</span><span class="s">...</span><span class="sh">"</span> <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="k">else</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="sh">"</span><span class="s">right</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Image-Text Similarity Scores</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>CLIP can be used for various tasks such as zero-shot image classification, image retrieval, and visual search, all without task-specific fine-tuning.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Use CLIP for zero-shot image classification by comparing an image against a list of category descriptions.</li>
+  <li>Create an image retrieval system that finds the most relevant image for a text query.</li>
+  <li>Experiment with CLIP’s understanding of visual concepts and relationships.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Multimodal Applications" /><summary type="html"><![CDATA[CLIP (Contrastive Language-Image Pre-training) is a powerful model that understands both images and text in a shared embedding space, enabling various multimodal tasks.]]></summary></entry><entry><title type="html">Image Captioning</title><link href="http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html" rel="alternate" type="text/html" title="Image Captioning" /><published>2025-03-09T15:15:02+00:00</published><updated>2025-03-09T15:15:02+00:00</updated><id>http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/image-captioning</id><content type="html" xml:base="http://0.0.0.0:4000/huggingface-tutorial/multimodal%20applications/2025-03-09-image-captioning.html"><![CDATA[<p>Image captioning generates descriptive text for images, useful for accessibility and content indexing.</p>
+
+<h4 id="hands-on-example-generating-captions-for-images">Hands-on Example: Generating Captions for Images</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="n">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Initialize the image-to-text pipeline
+</span><span class="n">image_captioner</span> <span class="o">=</span> <span class="nf">pipeline</span><span class="p">(</span><span class="sh">"</span><span class="s">image-to-text</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Load images from URLs
+</span><span class="n">image_urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/San_Francisco_skyline_at_night_from_Pier_7.jpg/800px-San_Francisco_skyline_at_night_from_Pier_7.jpg</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Giraffe_at_Kruger_National_Park%2C_South_Africa_%28square_crop%29.jpg/800px-Giraffe_at_Kruger_National_Park%2C_South_Africa_%28square_crop%29.jpg</span><span class="sh">"</span>
+<span class="p">]</span>
+
+<span class="c1"># Generate captions for each image
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">image_urls</span><span class="p">):</span>
+    <span class="c1"># Load image
+</span>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="nc">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">))</span>
+    
+    <span class="c1"># Display image
+</span>    <span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">axis</span><span class="p">(</span><span class="sh">'</span><span class="s">off</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Image </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+    
+    <span class="c1"># Generate caption
+</span>    <span class="n">captions</span> <span class="o">=</span> <span class="nf">image_captioner</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Generated captions for Image </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">caption</span> <span class="ow">in</span> <span class="n">captions</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">• </span><span class="si">{</span><span class="n">caption</span><span class="p">[</span><span class="sh">'</span><span class="s">generated_text</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The image captioning pipeline generates descriptive text for images, demonstrating how vision and language models can be combined.</p>
+
+<h4 id="try-it-yourself">Try It Yourself:</h4>
+<ol>
+  <li>Generate captions for personal photos or artwork to see how the model interprets different visual styles.</li>
+  <li>Try different models like <code class="language-plaintext highlighter-rouge">nlpconnect/vit-gpt2-image-captioning</code> for comparison.</li>
+  <li>Test the captioning on abstract or ambiguous images to see how the model handles them.</li>
+</ol>]]></content><author><name>Sudhir Gupta</name></author><category term="Multimodal Applications" /><summary type="html"><![CDATA[Image captioning generates descriptive text for images, useful for accessibility and content indexing.]]></summary></entry></feed>

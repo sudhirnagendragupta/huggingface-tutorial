@@ -1,0 +1,181 @@
+<div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="{{site.baseurl}}/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            {% if page.url == "/index.html" or page.url == "/" %}
+            <li class="chapter active" data-level="1.1" data-path="{{site.baseurl}}">
+            {% else %}
+            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}">
+            {% endif %}
+                <a href="{{site.baseurl}}/" onclick="pageScrollToTop(this)">
+                    {{ site.title | escape }}
+                </a>
+                {% if site.toc.enabled %}
+                    {% if site.toc.enabled_index %}
+                        {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                    {% endif %}
+                {% endif %}
+            </li>
+
+            <li class="divider"></li>
+
+            <!-- First pass: Process ordered sections -->
+            {% if site.section_order %}
+                {% for section in site.section_order %}
+                    {% assign section_posts = site.posts | where: "category", section %}
+                    {% if section_posts.size > 0 %}
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">{{ section }}</span>
+                        <ul class="articles">
+                        {% assign sorted_posts = section_posts | sort: "date" %}
+                        {% for post in sorted_posts %}
+                            {% if page.url == post.url %}
+                            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                            {% else %}
+                            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                            {% endif %}
+                                <a href="{{site.baseurl}}{{post.url}}" onclick="pageScrollToTop(this)">
+                                    {{ post.title | escape }}
+                                </a>
+                                {% if site.toc.enabled %}
+                                    {% if page.url == post.url %}
+                                        {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <!-- Fallback if no section_order is defined -->
+                {% assign categories = site.posts | map: "category" | uniq | sort %}
+                {% for category in categories %}
+                    {% assign category_posts = site.posts | where: "category", category | sort: "date" %}
+                    <li class="chapter" data-level="1.1">
+                        <span class="expand-stub"></span>
+                        <span class="section-title">{{ category }}</span>
+                        <ul class="articles">
+                        {% for post in category_posts %}
+                            {% if page.url == post.url %}
+                            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                            {% else %}
+                            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                            {% endif %}
+                                <a href="{{site.baseurl}}{{post.url}}" onclick="pageScrollToTop(this)">
+                                    {{ post.title | escape }}
+                                </a>
+                                {% if site.toc.enabled %}
+                                    {% if page.url == post.url %}
+                                        {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Second pass: Add remaining categories not in section_order -->
+            {% if site.section_order %}
+                {% assign all_categories = site.posts | map: "category" | uniq %}
+                {% for category in all_categories %}
+                    {% unless site.section_order contains category %}
+                        {% assign category_posts = site.posts | where: "category", category | sort: "date" %}
+                        <li class="chapter" data-level="1.1">
+                            <span class="expand-stub"></span>
+                            <span class="section-title">{{ category }}</span>
+                            <ul class="articles">
+                            {% for post in category_posts %}
+                                {% if page.url == post.url %}
+                                <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                                {% else %}
+                                <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                                {% endif %}
+                                    <a href="{{site.baseurl}}{{post.url}}" onclick="pageScrollToTop(this)">
+                                        {{ post.title | escape }}
+                                    </a>
+                                    {% if site.toc.enabled %}
+                                        {% if page.url == post.url %}
+                                            {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                                        {% endif %}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endunless %}
+                {% endfor %}
+            {% endif %}
+
+            <!-- Add collections at the end -->
+            {% if site.ordered_collections %}
+                {% for label in site.ordered_collections %}
+                    {% if label != "posts" %}
+                        {% assign collection = site.collections | where: "label", label | first %}
+                        {% if collection.output %}
+                            {% assign collection_docs = site[collection.label] | sort: "date" %}
+                            {% if collection_docs.size > 0 %}
+                                <li class="divider"></li>
+                                <li class="chapter" data-level="1.1">
+                                    <span class="expand-stub"></span>
+                                    <span class="section-title">{{ collection.label | capitalize }}</span>
+                                    <ul class="articles">
+                                    {% for doc in collection_docs %}
+                                        {% if page.url == doc.url %}
+                                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{doc.url}}">
+                                        {% else %}
+                                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{doc.url}}">
+                                        {% endif %}
+                                            <a href="{{site.baseurl}}{{doc.url}}" onclick="pageScrollToTop(this)">
+                                                {{ doc.title | escape }}
+                                            </a>
+                                            {% if site.toc.enabled %}
+                                                {% if page.url == doc.url %}
+                                                    {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </nav>
+</div>
